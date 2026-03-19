@@ -1,0 +1,19 @@
+# Arquivos compilados (Binários)
+*.class
+bin/
+obj/
+
+# Arquivos de Log
+*.log
+
+# Pastas de ferramentas e compilação
+.java_build_artifacts/
+target/
+
+# Configurações específicas do VS Code (Opcional, mas recomendado)
+.vscode/
+.history/
+
+# Arquivos temporários do Sistema Operacional
+Thumbs.db
+.DS_Store
