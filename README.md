@@ -7,12 +7,12 @@
 * [cite_start]**Tentativas:** O jogador tem no máximo 6 tentativas[cite: 3].
 * [cite_start]**Dica:** Cada palavra possui uma dica associada para auxiliar o jogador[cite: 3, 8].
 * [cite_start]**Penalidades:** A cada erro, uma penalidade crescente é aplicada[cite: 7]:
-    1. Perdeu primeira perna.
-    2. Perdeu segunda perna.
-    3. Perdeu primeiro braço.
-    4. Perdeu segundo braço.
-    5. Perdeu tronco.
-    6. Perdeu cabeça (Fim de jogo).
+    1. Surge Cabeça.
+    2. Surge Tronco.    
+    3. Surge primeiro braço.
+    4. Surge segundo braço.
+    5. Surge primeira perna.
+    6. Surge segunda perna (jogo termina).
 * [cite_start]**Vitória:** Ocorre ao adivinhar todas as letras da palavra[cite: 8].
 * [cite_start]**Derrota:** Ocorre ao atingir a penalidade de nível 6[cite: 8].
 
