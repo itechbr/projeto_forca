@@ -36,7 +36,7 @@ public class TelaJogo extends JFrame {
                 TelaJogo frame = new TelaJogo();
                 frame.setVisible(true);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println("Erro crítico ao carregar a interface: " + e.getMessage());
             }
         });
     }

@@ -103,15 +103,15 @@ public class JogoDaForca {
     }
 
     public String getNomePenalidade() {
-        switch (penalidades) {
-            case 1: return "perdeu primeira perna";
-            case 2: return "perdeu segunda perna";
-            case 3: return "perdeu primeiro braço";
-            case 4: return "perdeu segundo braço";
-            case 5: return "perdeu tronco";
-            case 6: return "perdeu cabeça";
-            default: return "sem penalidades"; 
-        }
+        return switch (penalidades) {
+            case 1 -> "perdeu primeira perna";
+            case 2 -> "perdeu segunda perna";
+            case 3 -> "perdeu primeiro braço";
+            case 4 -> "perdeu segundo braço";
+            case 5 -> "perdeu tronco";
+            case 6 -> "perdeu cabeça";
+            default -> "sem penalidades";
+        };
     }
 
     public String getResultado() {
