@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 public class TelaJogo extends JFrame {
@@ -143,7 +144,17 @@ public class TelaJogo extends JFrame {
                 if (letra.isEmpty()) return;
 
                 if (jogo.jaTentou(letra)) {
-                    JOptionPane.showMessageDialog(this, "A letra '" + letra + "' já foi usada!");
+                    // Cria um label estilizado para a mensagem
+                    JLabel msgCorpo = new JLabel("<html><div style='text-align: center;'>A letra <b style='color: #FF6666;'>" + letra + "</b> já foi usada!</div></html>");
+                    msgCorpo.setFont(fontePrincipal);
+                    msgCorpo.setForeground(corGiz);
+
+                    // Personaliza as cores do JOptionPane para esta chamada
+                    UIManager.put("OptionPane.background", corFundo);
+                    UIManager.put("Panel.background", corFundo);
+
+                    JOptionPane.showMessageDialog(this, msgCorpo, "Letra Repetida", JOptionPane.PLAIN_MESSAGE);
+                    
                     txtLetra.setText("");
                     txtLetra.requestFocus();
                     return;
