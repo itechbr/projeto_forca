@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class JogoDaForca {
+    // Atributos que controlam o funcionamento do jogo
     private ArrayList<String> todasAsPalavras;
     private ArrayList<String> palavrasUsadas;
     private String palavraSorteada; 
@@ -14,6 +15,7 @@ public class JogoDaForca {
     private int penalidades;
     private ArrayList<String> letrasTentadas;
 
+    // Inicializa o jogo e carrega o arquivo CSV das palavras
     public JogoDaForca() {
         todasAsPalavras = new ArrayList<>();
         palavrasUsadas = new ArrayList<>();
@@ -33,6 +35,7 @@ public class JogoDaForca {
         }
     }
 
+    // Sorteia uma nova palavra, define a dica e reseta os contadores da rodada
     public void iniciar() {
         if (todasAsPalavras.isEmpty()) return;
 
@@ -56,6 +59,7 @@ public class JogoDaForca {
         }
     }
 
+    // Gerencia as letras que já foram
     public boolean jaTentou(String letra) {
         String l = letra.toUpperCase().trim();
         if (letrasTentadas.contains(l)) {
@@ -69,9 +73,8 @@ public class JogoDaForca {
         return letrasTentadas;
     }
 
-    public String getDica() { return dicaSorteada; }
-    public String getPalavra() { return progresso; }
-
+    
+    // Verifica as ocorrências da letra na palavra sorteada e atualiza o progresso e penalidades
     public ArrayList<Integer> getOcorrencias(String letra) throws Exception {
         if (letra == null || letra.length() != 1) {
             throw new Exception("Entrada inválida. Por favor, insira uma única letra.");
@@ -80,7 +83,7 @@ public class JogoDaForca {
         ArrayList<Integer> ocorrencias = new ArrayList<>();
         String letraUpper = letra.toUpperCase();
         boolean encontrou = false;
-
+        
         for (int i = 0; i < palavraSorteada.length(); i++) {
             if (palavraSorteada.charAt(i) == letraUpper.charAt(0)) {
                 ocorrencias.add(i + 1);
@@ -95,36 +98,41 @@ public class JogoDaForca {
                 encontrou = true;
             }
         }
-
+        
         if (!encontrou) {
             this.penalidades++;
         }
         return ocorrencias;
     }
-
+    
+    // Retorna o nome da penalidade com base no número de penalidades acumuladas
     public String getNomePenalidade() {
         return switch (penalidades) {
-            case 1 -> "perdeu primeira perna";
-            case 2 -> "perdeu segunda perna";
-            case 3 -> "perdeu primeiro braço";
-            case 4 -> "perdeu segundo braço";
-            case 5 -> "perdeu tronco";
-            case 6 -> "perdeu cabeça";
+            case 1 -> "Cabeça";
+            case 2 -> "Tronco";
+            case 3 -> "Braço Direito";
+            case 4 -> "Braço Esquerdo";
+            case 5 -> "Perna Direita";
+            case 6 -> "Perna Esquerda";
             default -> "sem penalidades";
         };
     }
-
+    
+    // Verifica se ganhou ou perdeu
     public String getResultado() {
         if (palavraSorteada != null && progresso.equals(palavraSorteada)) return "venceu";
         if (penalidades >= 6) return "perdeu";
         return "em andamento";
     }
-
+    
+    // Determina se o jogo terminou, seja por vitória ou derrota
     public boolean terminou() {
         return (palavraSorteada != null && progresso.equals(palavraSorteada)) || penalidades >= 6;
     }
-
+    
     public int getAcertos() { return acertos; }
     public int getCodigoPenalidade() { return penalidades; }
     public ArrayList<String> getPalavras() { return palavrasUsadas; }
+    public String getDica() { return dicaSorteada; }
+    public String getPalavra() { return progresso; }
 }

@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 public class TelaJogo extends JFrame {
 
+    // Componentes da interface e referência à lógica do jogo
     private final JPanel contentPane;
     private final JTextField txtLetra;
     private final JLabel lblPalavra, lblDica, lblResultado, lblAcertos, lblPenalidade, lblImagem, lblLetrasUsadas;
@@ -30,6 +31,7 @@ public class TelaJogo extends JFrame {
     private final Color corGiz = new Color(245, 245, 245);  // Branco suave
     private final Font fontePrincipal = new Font("Comic Sans MS", Font.BOLD, 14); // Lembra escrita à mão
 
+    // Método main: Inicia a aplicação na thread de eventos do Swing
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
@@ -41,6 +43,7 @@ public class TelaJogo extends JFrame {
         });
     }
 
+    // Construtor: Configura a tela e inicializa o jogo
     public TelaJogo() {
         jogo = new JogoDaForca();
         
@@ -57,7 +60,7 @@ public class TelaJogo extends JFrame {
 
         int larguraJanela = 560;
 
-        // Botão comeeeeça o jogo no Maracanã
+        // Configuração dos botões e rótulos com posicionamento e estilo
         btnIniciar = new JButton("Iniciar Jogo");
         btnIniciar.setBounds((larguraJanela - 150) / 2, 20, 150, 35);
         estilizarBotao(btnIniciar);
@@ -128,6 +131,7 @@ public class TelaJogo extends JFrame {
         scroll.setBounds(50, 530, larguraJanela - 100, 70);
         contentPane.add(scroll);
 
+        // Evento do botão Iniciar: Começa a partida e limpa os campos
         btnIniciar.addActionListener(e -> {
             jogo.iniciar();
             atualizarTela();
@@ -137,6 +141,7 @@ public class TelaJogo extends JFrame {
             lblResultado.setText("EM ANDAMENTO...");
         });
 
+        // Evento do botão OK: Valida a entrada, verifica repetição e processa a letra
         btnAdivinhar.addActionListener(e -> {
             try {
                 String letra = txtLetra.getText().toUpperCase().trim();
@@ -174,6 +179,7 @@ public class TelaJogo extends JFrame {
         });
     }
 
+    // Padroniza o visual dos botões no tema quadro negro
     private void estilizarBotao(JButton btn) {
         btn.setBackground(corFundo);
         btn.setForeground(corGiz);
@@ -182,6 +188,7 @@ public class TelaJogo extends JFrame {
         btn.setBorder(BorderFactory.createLineBorder(corGiz, 1));
     }
 
+    // Sincroniza os elementos da interface com os dados atuais da classe JogoDaForca
     private void atualizarTela() {
         lblPalavra.setText(jogo.getPalavra());
         lblDica.setText("Dica: " + jogo.getDica());
@@ -209,6 +216,7 @@ public class TelaJogo extends JFrame {
         }
     }
 
+    // Executa as ações de encerramento da partida e exibe a imagem de Win/Lose
     private void finalizarPartida() {
         btnAdivinhar.setEnabled(false);
         txtLetra.setEnabled(false);
