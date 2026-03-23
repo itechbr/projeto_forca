@@ -126,7 +126,7 @@ public class TelaJogo extends JFrame {
         txtAreaHistorico.setBackground(new Color(50, 50, 50));
         txtAreaHistorico.setForeground(corGiz);
         txtAreaHistorico.setEditable(false);
-        JScrollPane scroll = new JScrollPane(txtAreaHistorico);
+        final JScrollPane scroll = new JScrollPane(txtAreaHistorico);
         scroll.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(corGiz), "Histórico", 0, 0, fontePrincipal, corGiz));
         scroll.setBounds(50, 530, larguraJanela - 100, 70);
         contentPane.add(scroll);
@@ -175,6 +175,31 @@ public class TelaJogo extends JFrame {
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        });
+        // Reposiciona os elementos automaticamente quando a janela muda de tamanho
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                int larguraAtual = contentPane.getWidth();
+                
+                // 1. Centraliza os elementos horizontais
+                btnIniciar.setBounds((larguraAtual - 150) / 2, 20, 150, 35);
+                lblPalavra.setBounds(0, 70, larguraAtual, 40);
+                lblDica.setBounds(0, 115, larguraAtual, 20);
+                lblLetrasUsadas.setBounds(0, 135, larguraAtual, 20);
+                lblImagem.setBounds((larguraAtual - 250) / 2, 160, 250, 250);
+                
+                // 2. Centraliza o grupo de input (campo de texto + botão OK)
+                int xInput = (larguraAtual - 160) / 2;
+                txtLetra.setBounds(xInput, 420, 50, 40);
+                btnAdivinhar.setBounds(xInput + 60, 420, 100, 40);
+                
+                // 3. Status e Histórico
+                lblAcertos.setBounds(0, 470, larguraAtual / 2, 20);
+                lblPenalidade.setBounds(larguraAtual / 2, 470, larguraAtual / 2, 20);
+                lblResultado.setBounds(0, 495, larguraAtual, 30);
+                scroll.setBounds((larguraAtual - 460) / 2, 530, 460, 70);
             }
         });
     }
