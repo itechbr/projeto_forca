@@ -144,32 +144,47 @@ public class TelaJogo extends JFrame {
         // Evento do botão OK: Valida a entrada, verifica repetição e processa a letra
         btnAdivinhar.addActionListener(e -> {
             try {
-                String letra = txtLetra.getText().toUpperCase().trim();
+                String entrada = txtLetra.getText().trim();
                 
-                if (letra.isEmpty()) return;
-
-                if (jogo.jaTentou(letra)) {
-                    // Cria um label estilizado para a mensagem
-                    JLabel msgCorpo = new JLabel("<html><div style='text-align: center;'>A letra <b style='color: #FF6666;'>" + letra + "</b> já foi usada!</div></html>");
-                    msgCorpo.setFont(fontePrincipal);
-                    msgCorpo.setForeground(corGiz);
-
-                    // Personaliza as cores do JOptionPane para esta chamada
+                // Regex
+                if (!entrada.matches("^[a-zA-Z]$")) {
+                    JLabel msgErro = new JLabel("<html><div style='text-align: center;'>Use apenas <b style='color: #FF6666;'>uma letra</b> (A-Z) sem acentos!</div></html>");
+                    msgErro.setFont(fontePrincipal);
+                    msgErro.setForeground(corGiz);
+                    
                     UIManager.put("OptionPane.background", corFundo);
                     UIManager.put("Panel.background", corFundo);
-
-                    JOptionPane.showMessageDialog(this, msgCorpo, "Letra Repetida", JOptionPane.PLAIN_MESSAGE);
                     
+                    JOptionPane.showMessageDialog(this, msgErro, "Entrada Inválida", JOptionPane.PLAIN_MESSAGE);
                     txtLetra.setText("");
                     txtLetra.requestFocus();
                     return;
                 }
 
+                String letra = entrada.toUpperCase();
+
+                // Repetição
+                if (jogo.jaTentou(letra)) {
+                    JLabel msgRepetida = new JLabel("<html><div style='text-align: center;'>A letra <b style='color: #FF6666;'>" + letra + "</b> já foi usada!</div></html>");
+                    msgRepetida.setFont(fontePrincipal);
+                    msgRepetida.setForeground(corGiz);
+                    
+                    UIManager.put("OptionPane.background", corFundo);
+                    UIManager.put("Panel.background", corFundo);
+
+                    JOptionPane.showMessageDialog(this, msgRepetida, "Letra Repetida", JOptionPane.PLAIN_MESSAGE);
+                    txtLetra.setText("");
+                    txtLetra.requestFocus();
+                    return;
+                }
+
+                // Processamento da Jogada
                 jogo.getOcorrencias(letra);
                 atualizarTela();
                 txtLetra.setText("");
                 txtLetra.requestFocus();
                 
+                // Verificação de Fim de Jogo
                 if (jogo.terminou()) {
                     finalizarPartida();
                 }
@@ -183,25 +198,26 @@ public class TelaJogo extends JFrame {
             public void componentResized(java.awt.event.ComponentEvent e) {
                 int larguraAtual = contentPane.getWidth();
                 
-                // 1. Centraliza os elementos horizontais
+                // Centraliza os elementos horizontais
                 btnIniciar.setBounds((larguraAtual - 150) / 2, 20, 150, 35);
                 lblPalavra.setBounds(0, 70, larguraAtual, 40);
                 lblDica.setBounds(0, 115, larguraAtual, 20);
                 lblLetrasUsadas.setBounds(0, 135, larguraAtual, 20);
                 lblImagem.setBounds((larguraAtual - 250) / 2, 160, 250, 250);
                 
-                // 2. Centraliza o grupo de input (campo de texto + botão OK)
+                // Centraliza o grupo de input (campo de texto + botão OK)
                 int xInput = (larguraAtual - 160) / 2;
                 txtLetra.setBounds(xInput, 420, 50, 40);
                 btnAdivinhar.setBounds(xInput + 60, 420, 100, 40);
                 
-                // 3. Status e Histórico
+                // Status e Histórico
                 lblAcertos.setBounds(0, 470, larguraAtual / 2, 20);
                 lblPenalidade.setBounds(larguraAtual / 2, 470, larguraAtual / 2, 20);
                 lblResultado.setBounds(0, 495, larguraAtual, 30);
                 scroll.setBounds((larguraAtual - 460) / 2, 530, 460, 70);
             }
         });
+    this.getRootPane().setDefaultButton(btnAdivinhar);
     }
 
     // Padroniza o visual dos botões no tema quadro negro
