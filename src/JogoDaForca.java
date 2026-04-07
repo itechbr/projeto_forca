@@ -108,12 +108,12 @@ public class JogoDaForca {
     // Retorna o nome da penalidade com base no número de penalidades acumuladas
     public String getNomePenalidade() {
         return switch (penalidades) {
-            case 1 -> "Cabeça";
-            case 2 -> "Tronco";
-            case 3 -> "Braço Direito";
-            case 4 -> "Braço Esquerdo";
-            case 5 -> "Perna Direita";
-            case 6 -> "Perna Esquerda";
+            case 1 -> "perdeu primeira perna";
+            case 2 -> "perdeu segunda perna";
+            case 3 -> "perdeu primeiro braço";
+            case 4 -> "perdeu segundo braço";
+            case 5 -> "perdeu tronco";
+            case 6 -> "perdeu cabeça";
             default -> "sem penalidades";
         };
     }
